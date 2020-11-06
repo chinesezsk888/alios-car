@@ -1,0 +1,13 @@
+<view class="error_box" a:if="{{errorType==='0'||errorType==='1'}}">
+  <!-- 网络中断error -->
+  <view class="int_error_box" a:if="{{errorType==='0'}}">
+    <view class="error_icon"></view>
+    <text>加载失败，请点击重试</text>
+    <view onTap="intRetry" class="retry_btn">重试</view>
+  </view>
+  <view class="load_error_box" a:if="{{errorType==='1'}}">
+    <view class="error_icon"></view>
+    <text>暂无内容</text>
+    <view onTap="loadRetry" class="retry_btn">刷新</view>
+  </view>
+</view>

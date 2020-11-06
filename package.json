@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "mini-ali-ui-rpx": "^1.1.5",
+    "umtrack-alipay": "^2.4.8"
+  }
+}

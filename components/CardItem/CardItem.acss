@@ -1,0 +1,46 @@
+.item{
+  width:100%;
+  margin-top:34.4036rpx;
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+}
+.con{
+  width:100%
+}
+.title_bold{
+  font-weight: bold;
+}
+.title{
+  width:100%;
+  font-size:24.0825rpx;
+  color:#fff;
+  margin-bottom:15.4816rpx;
+  min-height:55.04576rpx;
+}
+.date{
+  font-size:20.6421rpx;
+  color:#999;
+  
+}
+.on.title{
+  color:blue
+}
+.thumbnail+.con{
+  width:502.2925rpx;
+}
+.thumbnail{
+  width: 158.2565rpx;
+  height: 89.4493rpx;
+  border-radius: 6.8807rpx;
+  margin-right:27.5228rpx;
+}
+.playing{
+  background: url('/public/images/list/focus.gif') center no-repeat;
+  height:30.10315rpx;
+  width:30.10315rpx;
+  background-size:100%;
+  position: absolute;
+  bottom:0;
+  right:0;
+}

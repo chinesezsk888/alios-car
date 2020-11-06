@@ -1,0 +1,12 @@
+page {
+  flex: 1;
+  display: flex;
+  background: #242C34;
+}
+
+.icon_iphone{
+  background-image: url('/public/images/list/iphone.png');
+  width:20.6421rpx;
+  height:20.6421rpx;
+  background-size:100%;
+}

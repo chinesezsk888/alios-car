@@ -1,0 +1,30 @@
+{
+	"response": {
+		"domain": "miniapp_play_pause_news",
+		"intent": "play_news",
+		"keywords": [],
+		"score": 1,
+		"slots": {
+			"news_type": [
+				{
+					"norm": "previous",
+					"raw": "上篇新闻"
+				}
+			],
+			"_taskEnd_": [
+				{
+					"norm": "1",
+					"raw": ""
+				}
+			],
+			"_appid_": [
+				{
+					"norm": "2021001194643073",
+					"raw": ""
+				}
+			]
+		},
+		"source": "LOCAL"
+	},
+	"traceId": "53469412fd"
+}

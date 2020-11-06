@@ -1,0 +1,24 @@
+{
+	"response": {
+		"domain": "miniapp_play_pause_news",
+		"intent": "play_news",
+		"keywords": [],
+		"score": 1,
+		"slots": {
+			"_taskEnd_": [
+				{
+					"norm": "1",
+					"raw": ""
+				}
+			],
+			"_appid_": [
+				{
+					"norm": "2021001194643073",
+					"raw": ""
+				}
+			]
+		},
+		"source": "LOCAL"
+	},
+	"traceId": "d60c8e0d6c"
+}

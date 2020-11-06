@@ -1,0 +1,139 @@
+<view class="page {{basicClass}} {{listTwoClass}}" style="--s:{{basicSize}};">
+  <tabs
+    tabs="{{tabs}}"
+    tabsName="activeTab"
+    className="tab_panel"
+    activeTab="{{activeTab}}"
+    onTabClick="handleTabClick"
+    onChange="handleTabChange"
+    tabBarUnderlineColor="#00A5EB"
+    tabBarActiveTextColor="#fff"
+    tabBarBackgroundColor="#242C34"
+    tabBarInactiveTextColor="#999"
+    stickyBar="{{true}}"
+  >
+    <block a:for="{{tabs}}">
+      <tab-content key="{{index}}" tabId="{{index}}"  activeTab="{{activeTab}}"  a:if="{{index === 0}}">
+        <view class="panel" > 
+          <scroll-view class="scroll_view" 
+            onScrollToLower="addMore" 
+            scroll-top="{{selectNews.scrollTop}}"
+            scroll-y="{{true}}"
+          > 
+            <card-item item="{{item}}" onMyClick="onCardClick" isFocus="{{item.isFocus}}" tab="0" a:for="{{selectNews.contList}}" a:key="{{item.contId}}"></card-item>     
+            <view onTap="showQrcode" a:if="{{isShowMoreTxt}}" class="more_txt">更多原创新闻下载澎湃APP ></view>
+            <error-modal
+              errorType="{{selectNews.errorType}}"
+              onIntRetry="onRetrySelectNews"
+              onLoadRetry="onRetrySelectNews"
+              >
+            </error-modal>
+          </scroll-view>
+        </view>
+        
+      </tab-content>
+      <tab-content key="{{index}}" tabId="{{index}}"  activeTab="{{activeTab}}"  a:if="{{index === 1}}">
+        <view class="panel" > 
+          <scroll-view class="scroll_view" 
+            scroll-top="{{hotNews.scrollTop}}"
+            scroll-y="{{true}}"> 
+            <card-item item="{{item}}" onMyClick="onCardClick" isFocus="{{item.isFocus}}"  tab="1"  a:for="{{hotNews.contList}}" a:key="{{item.contId}}"></card-item>
+            <view onTap="showQrcode" class="more_txt"  a:if="{{hotNews.errorType!='1'}}">更多原创新闻下载澎湃APP ></view>
+          </scroll-view>
+        </view>
+        <error-modal 
+          errorType="{{hotNews.errorType}}"
+          onIntRetry="onRetryHotNews"
+          onLoadRetry="onRetryHotNews"
+          >
+        </error-modal>
+      </tab-content>
+    </block>
+  </tabs>
+<block a:if="{{basicClass=='heng_view'}}">
+  <view class="heng_player_panel">
+    <view>
+      <view hidden="{{swiperList.length != 0}}" class="heng_default_thum">
+        <image class="thumb" src="../../public/images/heng_audio/logo.png" mode="aspectFill"></image>
+      </view>
+      <view class="heng_swiper">
+        <swiper 
+          class="audio_swiper"
+          previousMargin="0"
+          nextMargin="0"
+          onChange="onSwiperChange"
+          onAnimationEnd="onAnimationEnd"
+          current="{{swiperIndex}}"
+        >
+          <block a:for="{{swiperList}}">
+            <swiper-item key="swiper-item-{{index}}" class="{{item.contId==swiperCurrent ? 'swiper_big' : ''}}">
+              <view class="{{item.contId==swiperCurrent ? 'swiper-item' : 'swiper-item'}}" >
+                <image class="thumb" default-source="{{defaultThumb}}" src="{{item.pic}}" mode="aspectFill"></image>
+              </view>
+            </swiper-item>
+          </block>
+        </swiper>
+        
+      </view>
+      <view class="swiper_title">
+        {{audio.title}}
+      </view>
+    </view>
+    <view class="heng_player_btns">
+      <view class="heng_prev_icon" hidden="{{!audio.hasPrev}}" onTap="onAudioPrev"></view>
+      <view class="heng_unprev_icon" hidden="{{audio.hasPrev}}"></view>
+      <view class="heng_play_icon" hidden="{{audio.isPlay}}" onTap="onAudioPlay"></view>
+      <view class="heng_pause_icon" hidden="{{!audio.isPlay}}" onTap="onAudioPause"></view>
+      <view class="heng_next_icon" hidden="{{!audio.hasNext}}" onTap="onAudioNext"></view>
+      <view class="heng_unnext_icon" hidden="{{audio.hasNext}}"></view>
+    </view>
+  </view>
+</block>
+
+
+<block a:if="{{basicClass=='shu_view'&&selectNews.contList.length!=0}}">
+  <view class="audio_list">
+    <view class="audio_card_box">
+      <view class="btn_box">
+        <view class="play_icon" hidden="{{audio.isPlay}}" onTap="onAudioPlay"></view>
+        <view class="pause_icon" hidden="{{!audio.isPlay}}" onTap="onAudioPause"></view>
+      </view>
+      <view class="audio_desc">{{audio.title}}</view>
+    </view>
+    <view class="next_icon" a:if="{{audio.hasNext}}" onTap="onAudioNext"></view>
+    <view class="unnext_icon" a:if="{{!audio.hasNext}}"></view>
+  </view>
+</block>
+<!--
+<view class="button_list">
+  <button data-type="1" onTap="testVocal">上一篇</button>
+  <button data-type="2" onTap="testVocal">下一篇</button>
+  <button data-type="3" onTap="testVocal">播放</button>
+  <button data-type="4" onTap="testVocal">暂停</button>
+  <button data-type="5" onTap="testVocal">播放全部精选</button>
+  <button data-type="6" onTap="testVocal">播放全部24小时</button>
+</view>
+-->
+  <view class="page_block_line"></view>
+  <view class="{{isFirstPlay==1?'qrcode_btn show':'qrcode_btn'}}" onTap="showQrcode">
+    <block a:if="{{isFirstPlay==1}}">
+      <view  class="icon_iphone qrcode_btn_icon"></view>
+      <text class="qrcode_btn_txt">点击下载澎湃新闻APP-专注时政与思想</text>
+    </block>
+    <block  a:if="{{isFirstPlay!=1}}">
+      <view class="icon_iphone qrcode_btn_icon"></view>
+      <text class="qrcode_btn_txt">APP</text>
+    </block>
+  </view>
+
+  <modal
+		show="{{isShowQr}}"
+		onModalClose="closeQrcode"
+    onMaskClick="closeQrcode"
+		advice="{{true}}"
+		>
+		<view class="qrcode_win">
+      <image src="{{qrCodePic}}" />
+		</view>
+	</modal>
+</view>

@@ -1,0 +1,9 @@
+{
+  "pages": [
+    "pages/homepage/homepage",
+    "pages/swiperdemo/swiperdemo"
+  ],
+  "window": {
+    "defaultTitle": "澎湃新闻随车听"
+  }
+}

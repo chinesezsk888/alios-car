@@ -1,0 +1,41 @@
+{
+	"response": {
+		"domain": "miniapp",
+		"intent": "open",
+		"score": 1,
+		"slots": {
+			"_taskEnd_": [
+				{
+					"norm": "1",
+					"raw": ""
+				}
+			],
+			"_appid_": [
+				{
+					"norm": "2021001194643073",
+					"raw": ""
+				}
+			],
+			"_debug_": [
+				{
+					"norm": "1",
+					"raw": ""
+				}
+			],
+			"_tts_": [
+				{
+					"norm": "欢迎使用澎湃新闻随车听，试试说，播放新闻",
+					"raw": ""
+				}
+			],
+			"_fuse_": [
+				{
+					"norm": "0",
+					"raw": ""
+				}
+			]
+		},
+		"source": "exactNlu"
+	},
+	"traceId": "4098b81539"
+}

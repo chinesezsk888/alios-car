@@ -1,0 +1,8 @@
+<view class="item" onTap="handleClick">
+  <image class="thumbnail" a:if="{{item.pic!=''}}" src="{{item.pic}}" default-source="{{defaultThumb}}" onError="{{handleImageErr}}" mode="aspectFill"></image>
+  <view class="con">
+    <view class="{{isFocus?'title title_bold':'title'}}">{{item.name}}</view>
+    <view class="date">{{item.pubTime}}</view>
+    <view class="playing" a:if="{{isFocus}}"></view>
+  </view>
+</view>

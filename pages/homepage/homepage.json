@@ -1,0 +1,9 @@
+{
+  "usingComponents": {
+    "tabs": "mini-ali-ui-rpx/es/tabs/index",
+    "modal": "mini-ali-ui-rpx/es/modal/index",
+    "tab-content": "mini-ali-ui-rpx/es/tabs/tab-content/index",
+    "card-item":"/components/CardItem/CardItem",
+    "error-modal":"/components/ErrorModal/ErrorModal"
+  }
+}
