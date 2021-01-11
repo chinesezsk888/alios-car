@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages/audiodemo/audiodemo",
     "pages/homepage/homepage",
     "pages/swiperdemo/swiperdemo"
   ],

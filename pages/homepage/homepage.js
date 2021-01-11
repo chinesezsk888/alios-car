@@ -51,8 +51,26 @@ Page({
     if (my.canIUse(`aliauto.onSkillResult`)) {  // 判断新增 API 是否可用
       my.aliauto.onSkillResult((skillData) => { // 获取对话返回结果：skillData(json格式)
         let resJson = JSON.stringify(skillData);  // 转为字符串，页面显示、日志打印使用
+        this.setData({  // 为绑定的变量赋值，此处用于在页面显示 对话返回结果
+          skillResult: resJson
+        });
         console.log("onLoad skill result:" + resJson);
-        this.analysisVocal(skillData)
+        if (my.canIUse(`aliauto.say`) && skillData) {
+          
+          if ((skillData["domain"] == "miniapp_play_pause_news") && (skillData["intent"] == "play_news") && (skillData["slots"]["news_type"][0]["norm"] == "next")) {
+            
+          } else if ((skillData["domain"] == "miniapp_play_pause_news") && (skillData["intent"] == "play_news") && (skillData["slots"]["news_type"][0]["norm"] == "previous")) {
+
+          } else if ((skillData["domain"] == "miniapp_play_pause_news") && (skillData["intent"] == "play_news") && (skillData["slots"]["news_type"][0]["norm"] == "selection_news")) {
+
+          } else if ((skillData["domain"] == "miniapp_play_pause_news") && (skillData["intent"] == "play_news") && (skillData["slots"]["news_type"][0]["norm"] == "24hot_news")) {
+
+          } else if ((skillData["domain"] == "miniapp_play_pause_news") && (skillData["intent"] == "pause_news")) {
+            
+          } else {
+            
+          }
+        };
       });
     }
     
@@ -62,9 +80,8 @@ Page({
       if(basicClass=='heng_view'&&windowWidth>=1646){
         listTwoClass = "view_two"
       }
-      // my.alert({content:windowWidth})  960
-      // 横屏，但是是小卡 todo
-
+      my.alert({content:windowWidth})
+      // 横屏，但是是小卡
       this.setData({
         basicSize,
         basicClass,
@@ -119,61 +136,6 @@ Page({
         this.backgroundAudioManager.play()
       }
     })
-  },
-  // 解析语音
-  analysisVocal(skillData){
-    if ((skillData["domain"] == "miniapp_play_pause_news") && (skillData["intent"] == "play_news")){
-      const norm = skillData["slots"]["news_type"]&&skillData["slots"]["news_type"][0]["norm"]
-      switch (norm) {
-        case "next":
-          console.log("analysisVocal 下一篇")
-          my.uma.trackEvent("5", { "intent":"下一篇" });
-          if(!this.data.audio.hasNext && this.data.isFirstPlay!==0 && my.canIUse(`aliauto.say`)){
-            my.aliauto.say({
-              spokenText: "已是最后一篇新闻",
-              writtenText:"已是最后一篇新闻",
-              tips: "tips"
-            });
-          } else {
-            this.movePlay()
-          }
-          break;
-        case "previous":
-          console.log("analysisVocal 上一篇")
-          my.uma.trackEvent("5", { "intent":"上一篇" });
-          if(!this.data.audio.hasPrev && my.canIUse(`aliauto.say`)){
-            my.aliauto.say({
-              spokenText: "已是第一篇新闻",
-              writtenText:"已是第一篇新闻",
-              tips: "tips"
-            });
-          } else {
-            this.movePlay(1)
-          }
-          break;
-        case "24hot_news":
-          console.log("analysisVocal 24小时")
-          my.uma.trackEvent("5", { "intent":"播放全部24小时" });
-          this.playList(1)
-          break;
-        case "selection_news":
-          console.log("analysisVocal 精选")
-          my.uma.trackEvent("5", { "intent":"播放精选" });
-          this.playList(0)
-          break;
-        default:
-          console.log("analysisVocal 播放")
-          my.uma.trackEvent("5", { "intent":"播放" });
-          this.onAudioPlay()
-          break;
-      }
-    } else if ((skillData["domain"] == "miniapp_play_pause_news") && (skillData["intent"] == "pause_news")) {
-      console.log("暂停")   
-      my.uma.trackEvent("5", { "intent":"暂停" });
-      this.onAudioPause()
-    } else {
-      
-    }
   },
   // 获取精选要闻
   getNewsList() {
@@ -316,17 +278,11 @@ Page({
   handleTabClick({ index, tabsName }) {
     if(this.data.isFirstPlay == 0){
       const txt = ['播放全部精选要闻','播放全部24小时最热'][index]
-      this.data.audioTab = index
-      const contList = this.getContList()
       this.setData({
         audio:{
           ...this.data.audio,
           title:txt
-        },
-        audioTab:index,
-        swiperIndex: 0,
-        swiperCurrent: contList[0].contId,
-        swiperList:contList
+        }
       })
     }
     this.setData({
@@ -435,46 +391,33 @@ Page({
     }
     return dealObj.contList
   },
-  // 从头播放列表
-  playList(tabType=-1){ //-1 与当前播放tab有关 0 播放精选 1 播放24小时 
-    this.backgroundAudioManager = my.getBackgroundAudioManager();
-    if(this.data.isFirstPlay === 0){
-      this._showAPPDownLoad()
-    }
-    if(tabType==-1){
-      tabType = this.data.activeTab;
-    } 
-    this.data.audioTab = tabType;
-    const contList = this.getContList()
-    const item = contList[0]
-    this.backgroundAudioManager.src = item.voiceSrc
-    this.backgroundAudioManager.title = item.name
-    this.backgroundAudioManager.play()
-    this.setData({
-      audio:{
-        isPlay:true, 
-        title:item.name, 
-        src:item.voiceSrc,
-        hasNext:true 
-      },
-      audioTab:tabType,
-      swiperIndex: 0,
-      swiperCurrent: item.contId,
-      swiperList:contList
-    })
-    this._setListItemByAudio(item.contId)
-  },
   // 播放按钮回调
   onAudioPlay(){
     my.uma.trackEvent("1", { "type":"播放" });
-  
+    if(this.data.isFirstPlay == 0){
+      this._showAPPDownLoad()
+    }
+    
+    this.backgroundAudioManager = my.getBackgroundAudioManager();
     if(this.data.currentListIndex == -1){
-      this.playList()
+      this.data.audioTab = this.data.activeTab;
+      const contList = this.getContList()
+      const item = contList[0]
+      this.backgroundAudioManager.src = item.voiceSrc
+      this.backgroundAudioManager.title = item.name
+      this.backgroundAudioManager.play()
+      this.setData({
+        audio:{
+          isPlay:true, 
+          title:item.name, 
+          src:item.voiceSrc,
+          hasNext:true 
+        },
+        audioTab:this.data.activeTab,
+        swiperList:contList
+      })
+      this._setListItemByAudio(item.contId)
     } else {
-      if(this.data.isFirstPlay === 0){
-        this._showAPPDownLoad()
-      }
-      this.backgroundAudioManager = my.getBackgroundAudioManager();
       const contList = this.getContList()
       this.backgroundAudioManager.play()
 
@@ -568,48 +511,6 @@ Page({
       this.onAudioNext()
     }else {
       this.onAudioPrev()
-    }
-  },
-  //测试语音
-  testVocal(event){
-    const type = event.target.dataset.type
-    switch (type) {
-      case "1":
-        if(!this.data.audio.hasPrev && my.canIUse(`aliauto.say`)){
-          my.aliauto.say({
-            spokenText: "已是第一篇新闻",
-            writtenText:"已是第一篇新闻",
-            tips: "tips"
-          });
-        } else {
-          this.movePlay(1)
-        }
-        break;
-      case "2":
-        if(!this.data.audio.hasNext && this.data.isFirstPlay!==0 && my.canIUse(`aliauto.say`)){
-          my.aliauto.say({
-            spokenText: "已是最后一篇新闻",
-            writtenText:"已是最后一篇新闻",
-            tips: "tips"
-          });
-        } else {
-          this.movePlay()
-        }
-        break;
-      case "3":
-        this.onAudioPlay()
-        break;
-      case "4":
-        this.onAudioPause()
-        break;
-      case "5":
-        this.playList(0)
-        break;
-      case "6":
-        this.playList(1)
-        break;
-      default:
-        break;
     }
   }
 });

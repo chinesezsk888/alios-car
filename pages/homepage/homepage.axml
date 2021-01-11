@@ -104,16 +104,8 @@
     <view class="unnext_icon" a:if="{{!audio.hasNext}}"></view>
   </view>
 </block>
-<!--
-<view class="button_list">
-  <button data-type="1" onTap="testVocal">上一篇</button>
-  <button data-type="2" onTap="testVocal">下一篇</button>
-  <button data-type="3" onTap="testVocal">播放</button>
-  <button data-type="4" onTap="testVocal">暂停</button>
-  <button data-type="5" onTap="testVocal">播放全部精选</button>
-  <button data-type="6" onTap="testVocal">播放全部24小时</button>
-</view>
--->
+
+
   <view class="page_block_line"></view>
   <view class="{{isFirstPlay==1?'qrcode_btn show':'qrcode_btn'}}" onTap="showQrcode">
     <block a:if="{{isFirstPlay==1}}">

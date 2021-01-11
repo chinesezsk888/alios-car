@@ -11,12 +11,8 @@
   height:900rpx;
   padding-bottom: 126.9722rpx;
 }
-.shu_view .qrcode_btn,
-.heng_view .qrcode_btn{
-  display: flex;
-}
+
 .qrcode_btn{
-  display: none;
   transition: all 0.5s ease;
   position: fixed;
   bottom:154.8162rpx;
@@ -27,6 +23,7 @@
   border-radius:6.8807rpx;
   text-align: center;
   line-height: 48.1650rpx;
+  display:flex;
   align-items: center;
   justify-content:normal;
   padding:0 27.52288rpx;
@@ -187,7 +184,7 @@ font-size:24.0825rpx
   
 }
 .heng_view .am-tabs-bar-tab{
-  font-size:calc(28 * var(--s));
+font-size:calc(28 * var(--s));
 }
 
 .heng_view .panel{
@@ -196,9 +193,7 @@ font-size:24.0825rpx
 .heng_view .scroll_view{
   display:flex;
   flex-wrap:wrap;
-
-  padding-top:calc(40 * var(--s));
-  padding-bottom:0;
+  height:calc(448 * var(--s));
 }
 .heng_view.view_two .item{
   width:50%;
@@ -258,9 +253,6 @@ font-size:24.0825rpx
   border-radius: calc(8 * var(--s));
   padding:0 calc(16 * var(--s));
 }
-.heng_view .qrcode_btn.show{
-  width: calc(500 * var(--s));
-}
 .heng_view .qrcode_btn_txt{
   font-size: calc(20 * var(--s));
   margin-left:calc(8 * var(--s));
@@ -283,10 +275,6 @@ font-size:24.0825rpx
 .heng_view .more_txt{
   font-size:calc(26 * var(--s));
   padding:calc(32 * var(--s)) 0;
-  margin-bottom:calc(100 * var(--s)) ;
-}
-.heng_view .page_block_line{
-  background: linear-gradient(180deg, rgba(36, 44, 52, 0) 0%, #242C34 100%);
 }
 .heng_play_icon{
   background: url('/public/images/heng_audio/audio_play.png')  no-repeat;
@@ -424,11 +412,4 @@ swiper-item{
 }
 .swiper_big .swiper_title{
   display: block;
-}
-
-.button_list{
-  position: fixed;
-  top:200px;
-  z-index: 1000;
-  right:10px;
 }
